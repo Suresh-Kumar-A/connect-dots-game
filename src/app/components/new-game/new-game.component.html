@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+        <div class="col" id="score-board-col">
+            <div class="card mt-5 tex-dark bg-light" id="score-board-card">
+                <div class="card-header custom-font text-uppercase text-center text-danger">
+                    <i class="fab fa-discord"></i>
+                    <span class="custom-ml-1">Score Board</span>
+                </div>
+                <div class="card-body p-0">
+                    <!-- <ul class="list-group list-group-flush">
+                        <li class="list-group-item fw-bold" *ngFor="let player of playerList; index as i">
+                            {{i+1}}. {{player.name}} - {{player.score}}</li>
+                    </ul> -->
+                    <table class="mb-0 table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">S.No</th>
+                                <th scope="col">Player Name</th>
+                                <th scope="col" class="text-center">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let player of playerList; index as i"
+                                [class]="{'active-user': count===i, 'table-active': count===i}">
+                                <th scope="row" class="text-center">{{i+1}}</th>
+                                <td>{{player.name}} <i class="fab fa-periscope custom-ml-1 text-danger" *ngIf="count===i"></i></td>
+                                <td class="text-center">{{player.score}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col" id="player-arena-col">
+            <button class="btn btn-primary" (click)="changeUser()">Click me</button>
+        </div>
+        <!-- <div class="col-3" id="rules-col">
+            <div class="card mt-5" id="score-board-card">
+
+            </div>
+        </div> -->
+    </div>
+</div>

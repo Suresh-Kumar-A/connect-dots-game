@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+}
+.custom-font {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.custom-full-height {
+  height: 100vh;
+}
+// input {
+//   font-family: "Roboto" !important;
+// }
+.custom-ml-5 {
+  margin-left: 15rem !important;
+}
