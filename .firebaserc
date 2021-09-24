@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "connect-dots-game": {
+      "hosting": {
+        "connect-dots-game": [
+          "connect-dots-game"
+        ]
+      }
+    }
+  }
+}

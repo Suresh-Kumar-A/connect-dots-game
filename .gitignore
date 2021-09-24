@@ -2,7 +2,11 @@
 .vscode
 
 # Ignore node modules with all downloaded libraries
-node_modules
+node_modules/
 
 # Ignore Package-lock.json
 package-lock.json
+
+# Ignore environment data
+environment.ts
+src//environment.ts
