@@ -1,6 +1,9 @@
 # ConnectDotsGame
 
 Dummy message
+
+For using sweetalert comment " const swal: SweetAlert;" in "node_modules/sweetalert/src/sweetalert.d.ts"
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.1.
 
 ## Development server
