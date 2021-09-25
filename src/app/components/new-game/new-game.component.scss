@@ -2,18 +2,37 @@
 //   color: white;
 // }
 
-.custom-ml-1{
-    margin-left: 0.5rem;
+.custom-ml-1 {
+  margin-left: 0.5rem;
 }
 
-.active-user{
-    border-left-width: 0.35rem;
-    border-left-color: #0d6efd;
+.active-user {
+  border-left-width: 0.35rem;
+  border-left-color: #0d6efd;
 }
 
 .button_custom {
-    height: 80px;
-    width: 80px;
-    margin: 0.8%;
-    border-color: bisque;
+  height: 80px;
+  width: 80px;
+  margin: 0.8%;
+  border-color: bisque;
+}
+
+.mark-left {
+  border-left-color: #dc3545;
+  border-left-width: 0.25rem;
+}
+.mark-right {
+  border-right-color: #212529;
+  border-right-width: 0.25rem;
+}
+
+.mark-top {
+  border-top-color: #146c43;
+  border-top-width: 0.25rem;
+}
+
+.mark-bottom {
+  border-bottom-color: #ffc107;
+  border-bottom-width: 0.25rem;
 }
