@@ -9,4 +9,7 @@ package-lock.json
 
 # Ignore environment data
 environment.ts
-src//environment.ts
+src/environment.ts
+
+# Ignore dist build
+dist/
