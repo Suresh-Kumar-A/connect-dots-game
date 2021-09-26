@@ -19,27 +19,30 @@ export class NewGameComponent implements OnInit {
   boxList: Box[] = [];
   avatarClassList = ['fab fa-optin-monster', 'fab fa-grunt', 'fab fa-earlybirds', 'fab fa-grav', 'fas fa-bacterium',
     'fab fa-jenkins', 'fab fa-keybase', 'fab fa-linux', 'fas fa-football-ball', 'fab fa-gitkraken'];
+  numOfPlayers = 0;
 
+  // don't give 0 as key to radio options, it will not work
   options = {
-    0: this.getAvatarWithTag(this.avatarClassList[0]),
-    1: this.getAvatarWithTag(this.avatarClassList[1]),
-    2: this.getAvatarWithTag(this.avatarClassList[2]),
-    3: this.getAvatarWithTag(this.avatarClassList[3]),
-    4: this.getAvatarWithTag(this.avatarClassList[4]),
-    5: this.getAvatarWithTag(this.avatarClassList[5]),
-    6: this.getAvatarWithTag(this.avatarClassList[6]),
-    7: this.getAvatarWithTag(this.avatarClassList[7]),
-    8: this.getAvatarWithTag(this.avatarClassList[8]),
-    9: this.getAvatarWithTag(this.avatarClassList[9])
+    1: this.getAvatarWithTag(this.avatarClassList[0]),
+    2: this.getAvatarWithTag(this.avatarClassList[1]),
+    3: this.getAvatarWithTag(this.avatarClassList[2]),
+    4: this.getAvatarWithTag(this.avatarClassList[3]),
+    5: this.getAvatarWithTag(this.avatarClassList[4]),
+    6: this.getAvatarWithTag(this.avatarClassList[5]),
+    7: this.getAvatarWithTag(this.avatarClassList[6]),
+    8: this.getAvatarWithTag(this.avatarClassList[7]),
+    9: this.getAvatarWithTag(this.avatarClassList[8]),
+    10: this.getAvatarWithTag(this.avatarClassList[9])
   };
   constructor() { }
 
   ngOnInit(): void {
-    this.choosePlayers();
+    this.getMatchDetails();
     // this.addSamplePlayers();
-    this.addSampleBox(this.numOfBoxes);
+    this.addBoxes(this.numOfBoxes);
   }
 
+  // used for Debugging | get sample users
   private addSamplePlayers() {
     const player1: User = {
       uid: 'SK1',
@@ -72,7 +75,7 @@ export class NewGameComponent implements OnInit {
     this.playerList.push(player1, player2, player3, player4);
   }
 
-  private addSampleBox(size: number) {
+  private addBoxes(size: number) {
     for (let i = 0; i < size; i++) {
       this.boxList[i] = {
         id: i,
@@ -101,12 +104,12 @@ export class NewGameComponent implements OnInit {
     }
   }
 
+  // used for Debugging | getting random avatar
   private getRandomAvatar(): string {
     return this.avatarClassList[Math.floor((Math.random() * 100) % 10)];
   }
 
   markBoxPosition(box: Box) {
-    // console.log(box)
     swal({
       buttons: {
         Left: { text: "LEFT", value: "left", className: 'btn-danger', visible: !box.position[0].status },
@@ -118,31 +121,27 @@ export class NewGameComponent implements OnInit {
       .then((value: any) => {
         switch (value) {
           case "left": {
-            // console.log("left")
             this.boxList[box.id].position[0].status = true;
             this.checkBoxCompletion(box.id);
           }
             break;
           case "right": {
-            // console.log("right")
             this.boxList[box.id].position[1].status = true;
             this.checkBoxCompletion(box.id);
           }
             break;
           case "top": {
-            // console.log("top")
             this.boxList[box.id].position[2].status = true;
             this.checkBoxCompletion(box.id);
           }
             break;
           case "bottom": {
-            // console.log("bottom")
             this.boxList[box.id].position[3].status = true;
             this.checkBoxCompletion(box.id);
           }
             break;
           default:
-          // console.log("Nothing");
+            console.info("Nothing is selected");
         }
         this.changeActiveUser();
       });
@@ -177,7 +176,7 @@ export class NewGameComponent implements OnInit {
     // making next user active
     if (this.filledBoxes !== this.numOfBoxes) {
       this.currentUserIndex++;
-      this.currentUserIndex = this.currentUserIndex > 3 ? (this.currentUserIndex % 4) : this.currentUserIndex;
+      this.currentUserIndex = this.currentUserIndex > (this.numOfPlayers - 1) ? (this.currentUserIndex % this.numOfPlayers) : this.currentUserIndex;
     }
     else
       this.gameOverShowResult();
@@ -213,55 +212,62 @@ export class NewGameComponent implements OnInit {
     }
   }
 
-  private choosePlayers() {
-
+  private getMatchDetails() {
     Swal.fire({
       title: 'Select Number of Players',
       input: 'select',
       inputOptions: {
         2: '2 Players',
+        3: '3 Players',
         4: '4 Players',
-        0: 'Custom'
+        7: '7 Players',
+        10: '10 Players',
+        // 0: 'Custom'
       },
       confirmButtonText: 'Continue <i class="far fa-hand-point-right"></i>'
     }).then((response) => {
-      // console.log(response.value)
-      let count = response.value;
-      for (let i = 0; i < count; i++) {
-        let index=i;
-        console.log("Started "+i)
-        this.getPlayerName(1).then((response) => {
-          console.log(response.value)
-          this.playerList[index] = {
-            uid: "UID_" + index,
-            avatarClassList: '',
-            name: response.value,
-            status: false,
-            score: 0
-          };
-          return this.getPlayerProfile(1)
-        }).then((response) => {
-          // console.log(response.value)
-          this.playerList[index].avatarClassList = this.avatarClassList[response.value];
-        })
-        console.log("Waited "+i)
-      }
+      this.getPlayerDetails(response.value);
     })
   }
 
+  private async getPlayerDetails(count: number) {
+    // Initialize empty plyers
+    this.playerList = new Array(count);
+    // Fill player info with data from user
+    for (let i = 0; i < count; i++) {
+      await this.getPlayerName(i).then((response) => {
+        this.playerList[i] = {
+          uid: "UID_" + i,
+          avatarClassList: '',
+          name: response.value,
+          status: false,
+          score: 0
+        };
+        return this.getPlayerAvatar(i);
+      }).then((response) => {
+        this.playerList[i].avatarClassList = this.avatarClassList[response.value - 1];
+        this.numOfPlayers++;
+      });
+    }
+  }
+
   private getPlayerName(index: number) {
-   return Swal.fire({
-      title: 'Enter Player-' + (index + 1) + ' Details',
+    return Swal.fire({
+      title: 'Enter your name: Player - ' + (index + 1),
       input: 'text',
-      inputPlaceholder: 'Enter your Name'
+      inputPlaceholder: 'Enter your Name',
+      inputValue: 'Player ' + (index + 1),
+      inputValidator: result => !result ? 'Your name should not be Empty!' : null
     })
   }
-  private getPlayerProfile(index: number) {
+  private getPlayerAvatar(index: number) {
     return Swal.fire({
-      title: 'Choose Player-' + (index + 1) + ' Avatar',
+      title: 'Choose your avatar: Player - ' + (index + 1),
       input: 'radio',
       width: '50rem',
-      inputOptions: this.options
+      inputOptions: this.options,
+      inputValue: index + 1,
+      inputValidator: result => !result ? 'You need to select your avatar!' : null
     })
   }
 
