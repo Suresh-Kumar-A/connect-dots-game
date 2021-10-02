@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="card bg-secondary border-0" style="max-width: 20rem;">
+        <div class="card-body">
+            <h5 class="card-title text-white">Continue to game by signing in</h5>
+            <button type="button" (click)="authService.googleSignIn()"
+                class="btn btn-light custom-google-sign-in-btn text-muted">
+                <img class="firebaseui-idp-icon" alt=""
+                    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+                <span>Sign in with Google</span>
+            </button>
+            <br>
+            <br>
+            <button type="button" class="btn btn-danger" (click)="authService.signOut()">Sign Out
+                <i class="fas fa-sign-out-alt"></i></button>
+        </div>
+    </div>
+</div>

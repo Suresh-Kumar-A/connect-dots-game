@@ -12,3 +12,6 @@ environment.ts
 
 # Ignore dist build
 dist/
+
+# Ignore firebase hosting cache
+*.cache
