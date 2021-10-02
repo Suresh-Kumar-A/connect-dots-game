@@ -18,7 +18,6 @@
                         <tbody>
                             <tr *ngFor="let player of playerList; index as i"
                                 [class]="{'active-user': currentUserIndex===i, 'table-active': currentUserIndex===i}">
-                                <!-- <th scope="row" class="text-center">{{i+1}}</th> -->
                                 <th scope="row" class="text-center">
                                     <i [class]="'fa-2x '+player.avatarClassList"></i>
                                 </th>
@@ -38,34 +37,14 @@
             <div class="card mt-5 tex-dark bg-light">
                 <div class="card-body bg-secondary">
                     <div class="row">
-                        <button type="button" class="btn btn-light button_custom" (click)="markBoxPosition(box)"
+                        <button type="button" class="btn btn-light button_custom" data-bs-toggle="modal"
+                            data-bs-target="#boxMarkOptionsModal" (click)="markBoxPosition(box)"
                             *ngFor="let box of boxList; index as i" [disabled]="box.status"
                             [class]="{'mark-left': box.position[0].status && !box.status, 'mark-right': box.position[1].status && !box.status,'mark-top': box.position[2].status && !box.status, 'mark-bottom': box.position[3].status && !box.status}">
                             <i class="fas fa-volleyball-ball" *ngIf="!box.ownerAvatar"></i>
                             <i [class]="'fa-3x '+box.ownerAvatar" *ngIf="box.ownerAvatar"></i>
                         </button>
                     </div>
-
-                    <!-- <div class="card-group">
-                        <div class="card">
-                            <div class="card-body">
-                                <i class="fa-3x fas fa-user-friends"></i>
-                                <div class="card-title">2 Players</div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <i class="fa-3x fas fa-users"></i>
-                                <div class="card-title">4 Players</div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <i class="fa-3x fas fa-users-cog"></i>
-                                <div class="card-title">Custom</div>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
 
             </div>
@@ -81,9 +60,51 @@
                         <li class="list-group-item">Click on a box choose a side</li>
                         <li class="list-group-item">Those who choose the last side of a box get's that box</li>
                         <li class="list-group-item">Winner will be player who have lot's of box</li>
-                        <li class="list-group-item">A fourth item</li>
-                        <li class="list-group-item">And a fifth one</li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Box Options Modal | Popup -->
+<div class="modal fade" id="boxMarkOptionsModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="width: 20rem;">
+            <div class="modal-header">
+                <h3 class="modal-title text-secondary" id="modalTitle">Mark your side</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-grid gap-2">
+                    <button *ngIf="!activeBox.position[2].status" class="btn btn-success text-uppercase custom-font"
+                        type="button" (click)="markTop(activeBox.id)" data-bs-dismiss="modal">
+                        Top
+                    </button>
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-grid gap-2">
+                                <button *ngIf="!activeBox.position[0].status"
+                                    class="btn btn-lg btn-dark text-uppercase custom-font" type="button"
+                                    (click)="markLeft(activeBox.id)" data-bs-dismiss="modal">
+                                    Left
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="d-grid gap-2">
+                                <button *ngIf="!activeBox.position[1].status"
+                                    class="btn btn-lg btn-primary text-uppercase custom-font" type="button"
+                                    (click)="markRight(activeBox.id)" data-bs-dismiss="modal">
+                                    Right
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button *ngIf="!activeBox.position[3].status" class="btn btn-danger text-uppercase custom-font"
+                        type="button" (click)="markBottom(activeBox.id)" data-bs-dismiss="modal">
+                        Bottom
+                    </button>
                 </div>
             </div>
         </div>

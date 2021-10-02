@@ -6,6 +6,10 @@ For using sweetalert comment " const swal: SweetAlert;" in "node_modules/sweetal
 
 Support upto 10 players
 
+firebase deploy --only hosting:connect-dots-game
+
+git update-index --skip-worktree 
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.1.
 
 ## Development server
