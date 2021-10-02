@@ -31,8 +31,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "node_modules/tippy.js/dist/tippy.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },

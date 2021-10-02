@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Box } from 'src/app/_model/box';
 import { User } from 'src/app/_model/user';
-import swal from 'sweetalert';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,7 +19,6 @@ export class NewGameComponent implements OnInit {
   avatarClassList = ['fab fa-optin-monster', 'fab fa-grunt', 'fab fa-earlybirds', 'fab fa-grav', 'fas fa-bacterium',
     'fab fa-jenkins', 'fab fa-keybase', 'fab fa-linux', 'fas fa-football-ball', 'fab fa-gitkraken'];
   numOfPlayers = 0;
-  count = 0;
   activeBox: Box = {
     id: 0,
     ownerId: '',
@@ -136,58 +134,27 @@ export class NewGameComponent implements OnInit {
 
   markBoxPosition(box: Box) {
     this.activeBox = box;
-    // swal({
-    //   buttons: {
-    //     Left: { text: "LEFT", value: "left", className: 'btn-danger', visible: !box.position[0].status },
-    //     Right: { text: "RIGHT", value: "right", className: 'btn-dark', visible: !box.position[1].status },
-    //     Top: { text: "TOP", value: "top", className: 'btn-success', visible: !box.position[2].status },
-    //     Bottom: { text: "Bottom", value: "bottom", className: 'btn-warning', visible: !box.position[3].status }
-    //   },
-    // })
-    //   .then((value: any) => {
-    //     switch (value) {
-    //       case "left": {
-    //         this.boxList[box.id].position[0].status = true;
-    //         this.checkBoxCompletion(box.id);
-    //       }
-    //         break;
-    //       case "right": {
-    //         this.boxList[box.id].position[1].status = true;
-    //         this.checkBoxCompletion(box.id);
-    //       }
-    //         break;
-    //       case "top": {
-    //         this.boxList[box.id].position[2].status = true;
-    //         this.checkBoxCompletion(box.id);
-    //       }
-    //         break;
-    //       case "bottom": {
-    //         this.boxList[box.id].position[3].status = true;
-    //         this.checkBoxCompletion(box.id);
-    //       }
-    //         break;
-    //       default:
-    //         console.info("Nothing is selected");
-    //     }
-    //     this.changeActiveUser();
-    //   });
   }
 
   public markLeft(id: number) {
     this.boxList[id].position[0].status = true;
     this.checkBoxCompletion(id);
+    this.changeActiveUser();
   }
   public markRight(id: number) {
     this.boxList[id].position[1].status = true;
     this.checkBoxCompletion(id);
+    this.changeActiveUser();
   }
   public markTop(id: number) {
     this.boxList[id].position[2].status = true;
     this.checkBoxCompletion(id);
+    this.changeActiveUser();
   }
   public markBottom(id: number) {
     this.boxList[id].position[3].status = true;
     this.checkBoxCompletion(id);
+    this.changeActiveUser();
   }
 
   private checkBoxCompletion(id: number) {
@@ -318,27 +285,3 @@ export class NewGameComponent implements OnInit {
     return '<i class="fa-2x ' + className + '"></i>';
   }
 }
-
-    // Implement in future
-    //   Swal.fire({
-    //     html:`<div class="card-group">
-    //     <div class="card">
-    //         <div class="card-body">
-    //             <i class="fa-3x fas fa-user-friends"></i>
-    //             <div class="card-title">2 Players</div>
-    //         </div>
-    //     </div>
-    //     <div class="card">
-    //         <div class="card-body">
-    //             <i class="fa-3x fas fa-users"></i>
-    //             <div class="card-title">4 Players</div>
-    //         </div>
-    //     </div>
-    //     <div class="card">
-    //         <div class="card-body">
-    //             <i class="fa-3x fas fa-users-cog"></i>
-    //             <div class="card-title">Custom</div>
-    //         </div>
-    //     </div>
-    // </div>`
-    //   })
