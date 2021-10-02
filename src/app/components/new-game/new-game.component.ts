@@ -20,6 +20,31 @@ export class NewGameComponent implements OnInit {
   avatarClassList = ['fab fa-optin-monster', 'fab fa-grunt', 'fab fa-earlybirds', 'fab fa-grav', 'fas fa-bacterium',
     'fab fa-jenkins', 'fab fa-keybase', 'fab fa-linux', 'fas fa-football-ball', 'fab fa-gitkraken'];
   numOfPlayers = 0;
+  count = 0;
+  activeBox: Box = {
+    id: 0,
+    ownerId: '',
+    status: false,
+    ownerAvatar: '',
+    position: [
+      {
+        status: false,
+        ownerId: ''
+      },
+      {
+        status: false,
+        ownerId: ''
+      },
+      {
+        status: false,
+        ownerId: ''
+      },
+      {
+        status: false,
+        ownerId: ''
+      }
+    ]
+  };
 
   // don't give 0 as key to radio options, it will not work
   options = {
@@ -110,41 +135,59 @@ export class NewGameComponent implements OnInit {
   }
 
   markBoxPosition(box: Box) {
-    swal({
-      buttons: {
-        Left: { text: "LEFT", value: "left", className: 'btn-danger', visible: !box.position[0].status },
-        Right: { text: "RIGHT", value: "right", className: 'btn-dark', visible: !box.position[1].status },
-        Top: { text: "TOP", value: "top", className: 'btn-success', visible: !box.position[2].status },
-        Bottom: { text: "Bottom", value: "bottom", className: 'btn-warning', visible: !box.position[3].status }
-      },
-    })
-      .then((value: any) => {
-        switch (value) {
-          case "left": {
-            this.boxList[box.id].position[0].status = true;
-            this.checkBoxCompletion(box.id);
-          }
-            break;
-          case "right": {
-            this.boxList[box.id].position[1].status = true;
-            this.checkBoxCompletion(box.id);
-          }
-            break;
-          case "top": {
-            this.boxList[box.id].position[2].status = true;
-            this.checkBoxCompletion(box.id);
-          }
-            break;
-          case "bottom": {
-            this.boxList[box.id].position[3].status = true;
-            this.checkBoxCompletion(box.id);
-          }
-            break;
-          default:
-            console.info("Nothing is selected");
-        }
-        this.changeActiveUser();
-      });
+    this.activeBox = box;
+    // swal({
+    //   buttons: {
+    //     Left: { text: "LEFT", value: "left", className: 'btn-danger', visible: !box.position[0].status },
+    //     Right: { text: "RIGHT", value: "right", className: 'btn-dark', visible: !box.position[1].status },
+    //     Top: { text: "TOP", value: "top", className: 'btn-success', visible: !box.position[2].status },
+    //     Bottom: { text: "Bottom", value: "bottom", className: 'btn-warning', visible: !box.position[3].status }
+    //   },
+    // })
+    //   .then((value: any) => {
+    //     switch (value) {
+    //       case "left": {
+    //         this.boxList[box.id].position[0].status = true;
+    //         this.checkBoxCompletion(box.id);
+    //       }
+    //         break;
+    //       case "right": {
+    //         this.boxList[box.id].position[1].status = true;
+    //         this.checkBoxCompletion(box.id);
+    //       }
+    //         break;
+    //       case "top": {
+    //         this.boxList[box.id].position[2].status = true;
+    //         this.checkBoxCompletion(box.id);
+    //       }
+    //         break;
+    //       case "bottom": {
+    //         this.boxList[box.id].position[3].status = true;
+    //         this.checkBoxCompletion(box.id);
+    //       }
+    //         break;
+    //       default:
+    //         console.info("Nothing is selected");
+    //     }
+    //     this.changeActiveUser();
+    //   });
+  }
+
+  public markLeft(id: number) {
+    this.boxList[id].position[0].status = true;
+    this.checkBoxCompletion(id);
+  }
+  public markRight(id: number) {
+    this.boxList[id].position[1].status = true;
+    this.checkBoxCompletion(id);
+  }
+  public markTop(id: number) {
+    this.boxList[id].position[2].status = true;
+    this.checkBoxCompletion(id);
+  }
+  public markBottom(id: number) {
+    this.boxList[id].position[3].status = true;
+    this.checkBoxCompletion(id);
   }
 
   private checkBoxCompletion(id: number) {
