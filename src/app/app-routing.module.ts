@@ -5,10 +5,10 @@ import { WaitingRoomComponent } from './components/waiting-room/waiting-room.com
 import { WelcomeComponent } from './components/welcome/welcome.component';
 
 const routes: Routes = [{
-  path: '',
+  path: 'sample',
   component: WelcomeComponent
 }, {
-  path: 'new-game',
+  path: '',
   component: NewGameComponent
 }, {
   path: 'waiting-room',
